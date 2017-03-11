@@ -8,25 +8,38 @@ import store from './store'
 import Jokes from './components/Jokes'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
+import PhotosContainer from './components/PhotosContainer'
+import Photos from './components/Photos'
+import MainPage from './components/MainPage'
+import UploaderContainer from './components/UploaderContainer'
 
-const ExampleApp = connect(
-  ({ auth }) => ({ user: auth })
-) (
-  ({ user, children }) =>
-    <div>
-      <nav>
-        {user ? <WhoAmI/> : <Login/>}
-      </nav> 
-      {children}
-    </div>
-)
+import { receivePhotos } from './reducers/photos'
+
+
+// const ExampleApp = connect(
+//   ({ auth }) => ({ user: auth })
+// ) (
+//   ({ user, children }) =>
+//     <div>
+//       <nav>
+//         {user ? <WhoAmI/> : <Login/>}
+//       </nav>
+//       {children}
+//     </div>
+// )
+
+const onPhotosEnter = () => {
+  store.dispatch(receivePhotos());
+}
 
 render (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
-        <IndexRedirect to="/jokes" />
-        <Route path="/jokes" component={Jokes} />
+      <Route path="/" >
+        <IndexRedirect to="home" />
+        <Route path="home" component={MainPage} />
+        <Route path='photos' component={UploaderContainer} />
+        <Route path="photos/:page" component={PhotosContainer} onEnter={onPhotosEnter} />
       </Route>
     </Router>
   </Provider>,

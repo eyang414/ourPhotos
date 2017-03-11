@@ -1,6 +1,8 @@
 'use strict'
 
 const express = require('express')
+const corsPrefetch = require('cors-prefetch-middleware')
+const imagesUpload = require('images-upload-middleware')
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
 const passport = require('passport')

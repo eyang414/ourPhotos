@@ -5,8 +5,10 @@
 // to get access to the User model.
 
 const User = require('./user')
+const Photos = require('./photos')
 const OAuth = require('./oauth')
 
 OAuth.belongsTo(User)
 User.hasOne(OAuth)
-module.exports = {User}
+Photos.belongsTo(User);
+module.exports = {User, Photos}
